@@ -56,10 +56,17 @@
     </footer>
 
     <script>
-        // CSV 파일 로드 함수
+        // CSV 파일 로드 함수 수정
         async function loadCSV(filename) {
             try {
-                const response = await fetch(`/data/${filename}`);
+                // GitHub raw content URL로 수정
+                const baseUrl = 'https://raw.githubusercontent.com/leeyoungho205/earthquake/main/data/';
+                // const baseUrl = '/data/'; // 이전 코드
+                
+                const url = `${baseUrl}${filename}`;
+                console.log('Loading CSV from:', url);
+                
+                const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -135,14 +142,16 @@
             return Math.max(0.025, magnitude * 0.01);
         }
 
-        // 포인트 생성 함수
+        // 포인트 생성 함수 수정
         async function createPoints() {
             try {
-                // CSV 파일 로드
-                const [earthquakes, volcanoes] = await Promise.all([
-                    loadCSV('significant_earthquakes.csv'),
-                    loadCSV('active_volcanoes.csv')
-                ]);
+                console.log('Loading earthquake data...');
+                const earthquakes = await loadCSV('significant_earthquakes.csv');
+                console.log('Earthquake data loaded:', earthquakes.length);
+
+                console.log('Loading volcano data...');
+                const volcanoes = await loadCSV('active_volcanoes.csv');
+                console.log('Volcano data loaded:', volcanoes.length);
 
                 // 지진 포인트 생성
                 earthquakes.forEach(quake => {
@@ -181,7 +190,7 @@
                     };
                 });
             } catch (error) {
-                console.error('Error creating points:', error);
+                console.error('Error in createPoints:', error);
             }
         }
 
