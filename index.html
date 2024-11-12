@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서비스 - 웹사이트</title>
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/services.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        #earth-container {
+            width: 100%;
+            height: 800px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>서비스</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">소개</a></li>
+            <li><a href="services.html">서비스</a></li>
+            <li><a href="contact.html">연락처</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <h2>제공 서비스</h2>
+            <div id="earth-container" style="width: 100%; height: 800px; margin: 20px 0;"></div>
+            <div class="service-grid">
+                <div class="service-item">
+                    <h3>서비스 1</h3>
+                    <p>서비스 1에 대한 상세 설명입니다.</p>
+                </div>
+                <div class="service-item">
+                    <h3>서비스 2</h3>
+                    <p>서비스 2에 대한 상세 설명입니다.</p>
+                </div>
+                <div class="service-item">
+                    <h3>서비스 3</h3>
+                    <p>서비스 3에 대한 상세 설명입니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 웹사이트 이름. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // CSV 파일 로드 함수
+        async function loadCSV(filename) {
+            try {
+                const response = await fetch(`/data/${filename}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.text();
+                return parseCSV(data);
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                return [];
+            }
+        }
+
+        // CSV 파싱 함수
+        function parseCSV(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = lines[0].split(',');
+            return lines.slice(1).map(line => {
+                const values = line.split(',');
+                const obj = {};
+                headers.forEach((header, i) => {
+                    obj[header] = values[i];
+                });
+                return obj;
+            });
+        }
+
+        // Three.js 초기화
+        const container = document.getElementById('earth-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        // 지구본 생성
+        const geometry = new THREE.SphereGeometry(7, 64, 64);
+        const textureLoader = new THREE.TextureLoader();
+        const texture = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+        const material = new THREE.MeshPhongMaterial({ 
+            map: texture,
+            specular: new THREE.Color(0x333333),
+            shininess: 5
+        });
+        const earth = new THREE.Mesh(geometry, material);
+        scene.add(earth);
+
+        // 조명 설정
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        camera.add(light);
+        light.position.set(0, 0, 1);
+        scene.add(camera);
+        scene.add(new THREE.AmbientLight(0x333333));
+        camera.position.z = 20;
+
+        // OrbitControls 설정 수정
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.autoRotate = false;  // 자동 회전 비활성화
+        // controls.autoRotateSpeed = 0.5;  // 필요 없으므로 제거
+
+        // 좌표 변환 함수
+        function latLngToVector3(lat, lng, radius) {
+            const phi = (90 - lat) * (Math.PI / 180);
+            const theta = (lng + 180) * (Math.PI / 180);
+            const x = -(radius * Math.sin(phi) * Math.cos(theta));
+            const z = (radius * Math.sin(phi) * Math.sin(theta));
+            const y = (radius * Math.cos(phi));
+            return new THREE.Vector3(x, y, z);
+        }
+
+        // 지진 크기에 따른 포인트 크기 계산 - 50% 축소
+        function getMagnitudeSize(magnitude) {
+            return Math.max(0.025, magnitude * 0.01);
+        }
+
+        // 포인트 생성 함수
+        async function createPoints() {
+            try {
+                // CSV 파일 로드
+                const [earthquakes, volcanoes] = await Promise.all([
+                    loadCSV('significant_earthquakes.csv'),
+                    loadCSV('active_volcanoes.csv')
+                ]);
+
+                // 지진 포인트 생성
+                earthquakes.forEach(quake => {
+                    const size = getMagnitudeSize(parseFloat(quake.magnitude));
+                    const geometry = new THREE.SphereGeometry(size, 8, 8);
+                    const color = parseFloat(quake.magnitude) >= 8.0 ? 0xff0000 : 
+                                 parseFloat(quake.magnitude) >= 7.0 ? 0xffff00 : 0xffffff;
+                    const material = new THREE.MeshBasicMaterial({ color: color });
+                    const position = latLngToVector3(parseFloat(quake.latitude), parseFloat(quake.longitude), 7.1);
+                    const point = new THREE.Mesh(geometry, material);
+                    point.position.copy(position);
+                    scene.add(point);
+
+                    point.userData = {
+                        type: 'earthquake',
+                        magnitude: quake.magnitude,
+                        year: quake.year,
+                        location: quake.location
+                    };
+                });
+
+                // 화산 포인트 생성 - 크기 50% 축소
+                volcanoes.forEach(volcano => {
+                    const geometry = new THREE.SphereGeometry(0.05, 8, 8);
+                    const material = new THREE.MeshBasicMaterial({ color: 0xff4500 });
+                    const position = latLngToVector3(parseFloat(volcano.latitude), parseFloat(volcano.longitude), 7.1);
+                    const point = new THREE.Mesh(geometry, material);
+                    point.position.copy(position);
+                    scene.add(point);
+
+                    point.userData = {
+                        type: 'volcano',
+                        name: volcano.name,
+                        lastEruption: volcano.last_eruption,
+                        country: volcano.country
+                    };
+                });
+            } catch (error) {
+                console.error('Error creating points:', error);
+            }
+        }
+
+        // 마우스 이벤트 처리를 위한 설정
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let tooltip = document.createElement('div');
+        tooltip.style.position = 'absolute';
+        tooltip.style.background = 'rgba(0,0,0,0.8)';
+        tooltip.style.color = 'white';
+        tooltip.style.padding = '10px';
+        tooltip.style.borderRadius = '5px';
+        tooltip.style.display = 'none';
+        container.appendChild(tooltip);
+
+        // 마우스 이벤트 처리 수정
+        container.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX - container.offsetLeft) / container.clientWidth * 2 - 1;
+            mouse.y = -((event.clientY - container.offsetTop) / container.clientHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(scene.children);
+
+            if (intersects.length > 0 && intersects[0].object.userData.type) {
+                const point = intersects[0].object;
+                tooltip.style.display = 'block';
+                
+                // 툴팁 위치를 마우스 포인터 바로 위로 조정
+                const tooltipHeight = 80; // 툴팁의 예상 높이
+                tooltip.style.left = `${event.clientX}px`;
+                tooltip.style.top = `${event.clientY - tooltipHeight}px`;
+
+                if (point.userData.type === 'earthquake') {
+                    tooltip.innerHTML = `
+                        지진<br>
+                        규모: ${point.userData.magnitude}<br>
+                        발생년도: ${point.userData.year}<br>
+                        위치: ${point.userData.location}
+                    `;
+                } else {
+                    tooltip.innerHTML = `
+                        화산<br>
+                        이름: ${point.userData.name}<br>
+                        마지막 분화: ${point.userData.lastEruption}<br>
+                        국가: ${point.userData.country}
+                    `;
+                }
+            } else {
+                tooltip.style.display = 'none';
+            }
+        });
+
+        // 애니메이션
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // 초기화 및 애니메이션 시작
+        createPoints();
+        animate();
+
+        // 반응형 처리
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,113 @@
+latitude,longitude,name,last_eruption,country
+19.4750,-155.2925,Kilauea,2024,USA
+-16.3550,-71.8530,Sabancaya,2024,Peru
+-41.3270,174.0650,Ruapehu,2023,New Zealand
+14.0020,120.9930,Taal,2022,Philippines
+-0.0770,-78.4440,Cotopaxi,2023,Ecuador
+37.7347,140.2631,Azuma,2024,Japan
+31.9313,130.8626,Sakurajima,2024,Japan
+13.2565,123.6854,Mayon,2024,Philippines
+-15.7861,-71.8539,Misti,2023,Peru
+-16.2927,-70.9013,Ubinas,2023,Peru
+42.9373,144.4242,Kussharo,2023,Japan
+35.8944,137.4808,Ontake,2014,Japan
+19.4819,-155.5882,Mauna Loa,2022,USA
+-38.1370,176.5000,Taupo,1923,New Zealand
+36.4000,-118.1500,Long Valley,1980,USA
+40.4850,-121.5085,Lassen Peak,1935,USA
+46.8698,-121.7603,Mount Rainier,1954,USA
+56.0567,160.6417,Klyuchevskoy,2023,Russia
+-7.9424,112.9511,Mount Bromo,2019,Indonesia
+14.0095,120.9977,Taal,2022,Philippines
+-3.6267,144.6208,Manam,2023,Papua New Guinea
+-4.2723,152.2033,Rabaul,2014,Papua New Guinea
+15.1429,120.3496,Pinatubo,1991,Philippines
+-8.2680,123.5855,Mount Lewotolo,2021,Indonesia
+-7.5420,110.4460,Mount Merapi,2024,Indonesia
+-7.9420,112.9510,Mount Semeru,2023,Indonesia
+-8.0580,114.2420,Mount Raung,2023,Indonesia
+37.6200,139.3800,Mount Bandai,1988,Japan
+43.3800,143.9800,Mount Tokachi,1962,Japan
+46.2000,-121.4900,Mount Adams,1950,USA
+-0.3560,-78.4460,Guagua Pichincha,2002,Ecuador
+-1.4670,-78.4420,Tungurahua,2016,Ecuador
+-2.0020,-78.3410,Sangay,2024,Ecuador
+-4.8920,-75.3240,Nevado del Ruiz,2023,Colombia
+13.4930,-89.5800,San Salvador,1917,El Salvador
+14.7560,-91.5520,Santa Maria,2024,Guatemala
+19.0230,-97.2680,Citlaltepetl,2024,Mexico
+19.4230,-98.6320,Popocatepetl,2024,Mexico
+61.2990,-152.2510,Mount Spurr,1992,USA
+61.3989,-152.0810,Hayes,1500,USA
+61.6410,-152.4040,Mount Spurr,1992,USA
+62.1180,-144.0200,Mount Wrangell,1900,USA
+63.3700,-150.4790,Mount McKinley,1900,USA
+56.6560,161.3600,Shiveluch,2024,Russia
+56.8560,160.5210,Bezymianny,2024,Russia
+57.3230,160.2540,Tolbachik,2013,Russia
+53.2510,158.8300,Avachinsky,2001,Russia
+51.4640,157.2040,Alaid,2016,Russia
+50.6860,156.1400,Chirinkotan,2017,Russia
+47.1210,142.1780,Tyatya,1973,Russia
+45.3870,147.9210,Chirpoi,2024,Russia
+44.4350,146.2530,Grozny Group,1989,Russia
+43.8450,146.3140,Baransky,1951,Russia
+42.6900,140.6830,Usu,2000,Japan
+42.5410,140.8390,Showa-shinzan,1945,Japan
+43.4200,143.0300,Tokachi,1962,Japan
+43.3800,144.4200,Akan,1996,Japan
+43.2500,145.5100,Rausu,1940,Japan
+43.5700,144.5700,Mashu,1960,Japan
+42.8700,144.3300,Kutcharo,1950,Japan
+42.0500,143.8400,Shikotsu,1981,Japan
+41.9800,140.6300,Esan,1962,Japan
+41.4000,141.1000,Osore-yama,1787,Japan
+40.6500,140.3000,Iwaki,1863,Japan
+39.9600,139.7600,Chokai,1974,Japan
+39.1000,140.0500,Akita-Yakeyama,1997,Japan
+38.5700,140.1800,Kurikoma,1950,Japan
+37.6000,140.2800,Azuma,2024,Japan
+36.4000,137.6000,Yakedake,1995,Japan
+35.9000,137.4800,Ontake,2014,Japan
+35.3500,138.7300,Fuji,1707,Japan
+34.9000,139.1500,Hakone,2001,Japan
+34.7500,139.3700,Oshima,1990,Japan
+34.5200,139.2800,Miyake-jima,2000,Japan
+33.1300,139.7600,Bayonnaise Rocks,1970,Japan
+31.9300,130.8600,Sakurajima,2024,Japan
+31.5800,130.6700,Kirishima,2024,Japan
+31.2300,130.2900,Kaimon,885,Japan
+30.7900,130.3100,Kuchinoerabu-jima,2020,Japan
+27.2500,140.8800,Tori-shima,2002,Japan
+24.7500,141.2900,Kita-Iwo-jima,1935,Japan
+24.2500,141.4800,Iwo-jima,2024,Japan
+-0.3800,121.6100,Una Una,1983,Indonesia
+-0.1700,119.8400,Colo,1983,Indonesia
+0.8000,127.3300,Gamalama,2024,Indonesia
+1.4100,125.0300,Ruang,2024,Indonesia
+1.6900,125.4800,Karangetang,2024,Indonesia
+2.7800,125.4100,Awu,2024,Indonesia
+3.1700,125.5000,Banua Wuhu,1919,Indonesia
+3.6700,125.5000,Ruang,2002,Indonesia
+4.8000,125.0300,Karangetang,2024,Indonesia
+-8.2700,123.5100,Lewotobi,2024,Indonesia
+-8.3200,123.2600,Iliwerung,2024,Indonesia
+-8.5400,122.7800,Lewotolo,2024,Indonesia
+-8.7200,122.4400,Iliboleng,2024,Indonesia
+-8.3200,121.7100,Paluweh,2013,Indonesia
+-8.3400,121.6400,Egon,2024,Indonesia
+-8.5300,120.9600,Inie Lika,2024,Indonesia
+-8.7200,120.0200,Sangeang Api,2024,Indonesia
+-8.4200,119.8400,Tambora,2024,Indonesia
+-8.2500,118.0000,Sangean Api,2024,Indonesia
+-8.4200,116.4700,Rinjani,2024,Indonesia
+-7.9400,112.9500,Semeru,2024,Indonesia
+-7.5400,110.4500,Merapi,2024,Indonesia
+-7.2400,109.9200,Slamet,2024,Indonesia
+-7.5400,110.4500,Merapi,2024,Indonesia
+-7.9400,112.9500,Semeru,2024,Indonesia
+-8.1100,114.0400,Raung,2024,Indonesia
+-8.0600,114.2400,Ijen,2024,Indonesia
+-8.2700,115.3700,Agung,2024,Indonesia
+-8.4200,115.5100,Batur,2024,Indonesia
+-8.3200,116.4100,Rinjani,2024,Indonesia

@@ -1,0 +1,12 @@
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.service-item {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+} 
